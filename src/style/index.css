@@ -1,3 +1,31 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+:root {
+    --friendly-blue: #AEDFF7;
+    --friendly-green: #B8E4C9;
+    --friendly-yellow: #FFF9B1;
+    --friendly-orange: #FFD6A5;
+    --friendly-purple: #D6C7F7;
+    --friendly-gray: #F2F2F2;
+}
+
+@layer components {
+    .btn-primary {
+        font-size: small;
+        border-radius: calc(infinity * 0.5px);
+        background-color: var(--color-violet-700);
+        padding-inline: --spacing(10);
+        padding-block: --spacing(3);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-white);
+        box-shadow: var(--shadow-md);
+
+        &:hover {
+            @media (hover: hover) {
+                background-color: var(--color-violet-900);
+            }
+        }
+    }
+}
