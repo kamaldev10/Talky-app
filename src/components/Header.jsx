@@ -5,9 +5,17 @@ import {
   LogOut,
 } from "lucide-react";
 import React, { useState } from "react";
+import { clearUser } from "../utils/userStorage";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    clearUser();
+    navigate("/biodata");
+  };
 
   return (
     <>
@@ -31,7 +39,10 @@ const Header = () => {
             <User size={18} strokeWidth={1.5} className="stroke-violet-700" />
             <p className="text-xs ms-1 font-semibold ">Ali Musthafa Kamal</p>
           </li>
-          <li className="flex items-center text-violet-700 cursor-pointer">
+          <li
+            className="flex items-center text-violet-700 cursor-pointer"
+            onClick={handleLogout}
+          >
             <LogOut size={18} strokeWidth={1.5} />
             <p className="text-xs ms-1 text-violet-700 font-semibold">Keluar</p>
           </li>
@@ -63,7 +74,10 @@ const Header = () => {
                 Ali Musthafa Kamal
               </p>
             </li>
-            <li className="flex items-center text-violet-700">
+            <li
+              className="flex items-center text-violet-700"
+              onClick={handleLogout}
+            >
               <LogOut size={18} strokeWidth={1.5} />
               <p className="text-xs ms-3 text-violet-700 font-semibold">
                 Keluar

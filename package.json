@@ -13,6 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "autoprefixer": "^10.4.21",
+    "framer-motion": "^12.12.1",
     "google-tts-api": "^2.0.2",
     "howler": "^2.2.4",
     "lucide-react": "^0.510.0",

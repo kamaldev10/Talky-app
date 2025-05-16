@@ -2,24 +2,30 @@ import { Title } from "react-head";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getUser } from "../utils/userStorage";
+import GoogleStyleLoader from "../components/GoogleStyleLoader";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const user = getUser();
 
     if (!user) {
-      navigate("/biodata");
+      navigate("/biodata"); // redirect ke biodata kalau tidak login
+    } else {
+      setTimeout(() => {
+        setLoading(false); // setelah delay, tampilkan konten utama
+      }, 3000);
     }
   }, [navigate]);
 
   return (
     <>
       <Title>Disability App | Beranda </Title>
-      <div className="min-h-screen flex flex-col">
+      <div className="relative min-h-screen flex flex-col">
         <div>
           <Header />
         </div>
@@ -41,7 +47,9 @@ const Home = () => {
         </div>
         <div>
           <Footer />
-        </div>
+        </div>{" "}
+        {/* Overlay loader */}
+        {loading && <GoogleStyleLoader />}
       </div>
     </>
   );
