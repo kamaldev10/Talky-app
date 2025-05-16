@@ -1,31 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Title } from "react-head";
 import BackButton from "../components/BackButton";
-import { Link } from "react-router-dom";
+import { getUser } from "../utils/userStorage";
 
 const InfoSaya = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const userData = getUser();
+    setUser(userData);
+  }, []);
+
   return (
     <>
-      <Title>Disability App | Informasi Saya</Title>
-      <div className="relative min-h-screen flex items-center justify-center bg-(--friendly-blue) ">
-        <div className="absolute top-0 left-0">
-          <BackButton></BackButton>
-        </div>
-        {/* <h1 className="absolute top-15 left-1/2 transform -translate-x-1/2 text-xl font-bold">
-          Informasi Saya
-        </h1> */}
-        <h2 className="absolute top-13 left-1/2 transform -translate-x-1/2 text-md mt-3 font-bold">
-          Aku adalah Ultramen mebiuss
-        </h2>
+      <Title>Disability App | Info Saya</Title>
+      <div className=" min-h-screen flex flex-col items-center justify-center bg-(--friendly-blue) ">
+        <header className="flex items-start justify-start w-full p-4">
+          <BackButton />
+        </header>
 
-        <img
-          className="w-full"
-          src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjJ0MWU4bHNjbTNvYm1reW50cWhwZ2puZDVnbXpqYWZxaGZ2cmgxaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/EkhQKcriTUg6s/giphy.gif"
-        />
-
-        <div className="flex flex-col gap-4 text-center ">
-          <h2></h2>
-          <p></p>
+        <div className="flex-grow flex gap-4 items-center ">
+          <div className="flex flex-col gap-4 text-center text-wrap ">
+            <button className="min-w-2xs p-4 bg-indigo-500 hover:bg-indigo-700 rounded-tl-xl rounded-br-xl  transition duration-150 ease-in-out hover:scale-110">
+              <p className="text-white">
+                Saya adalah{" "}
+                <span className="font-bold uppercase mx-2">
+                  {user?.nama || "Pengguna"}
+                </span>
+              </p>
+            </button>
+            <button className=" min-w-2xs p-4 bg-indigo-500 hover:bg-indigo-700 rounded-tl-xl rounded-br-xl  transition  duration-150 ease-in-out  hover:scale-110">
+              <p className="text-white">
+                Umur saya adalah
+                <span className="font-bold uppercase mx-1">
+                  {user?.umur || "12"}
+                </span>
+                tahun
+              </p>
+            </button>
+          </div>
         </div>
       </div>
     </>

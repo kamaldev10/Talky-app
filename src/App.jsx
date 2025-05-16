@@ -13,14 +13,14 @@ import Identitas from "./pages/Identitas";
 import Kegiatan from "./pages/Kegiatan";
 import InfoSaya from "./pages/InfoSaya";
 import Kategori from "./pages/Kategori";
+import InfoKeluarga from "./pages/InfoKeluarga";
+import BiodataForm from "./pages/BiodataForm";
 
 function Layout() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <main className="flex-grow">
-        <Outlet />
-      </main>
-    </div>
+    <main>
+      <Outlet />
+    </main>
   );
 }
 
@@ -31,13 +31,19 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="info" element={<Info />} />
+
             <Route path="kategori" element={<Kategori />} />
-            <Route path="petunjuk" element={<Petunjuk />} />
-            <Route path="identitas" element={<Identitas />} />
-            <Route path="kegiatan" element={<Kegiatan />} />
-            <Route path="info-saya" element={<InfoSaya />} />
+            <Route path="kategori/kegiatan" element={<Kegiatan />} />
+            <Route path="kategori/info-saya" element={<InfoSaya />} />
+            <Route path="kategori/info-keluarga" element={<InfoKeluarga />} />
+
+            <Route path="info" element={<Info />} />
+            <Route path="info/petunjuk" element={<Petunjuk />} />
+            <Route path="info/identitas" element={<Identitas />} />
           </Route>
+
+          {/* letakkan ini di luar Layout, biar nggak ikut <Outlet /> */}
+          <Route path="/biodata" element={<BiodataForm />} />
         </Routes>
       </Router>
     </HeadProvider>
