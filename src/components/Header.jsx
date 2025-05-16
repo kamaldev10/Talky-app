@@ -4,12 +4,20 @@ import {
   ArrowBigRightDash,
   LogOut,
 } from "lucide-react";
-import React, { useState } from "react";
-import { clearUser } from "../utils/userStorage";
+import React, { useEffect, useState } from "react";
+import { clearUser, getUser } from "../utils/userStorage";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const userData = getUser();
+    setUser(userData);
+  }, []);
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -37,7 +45,9 @@ const Header = () => {
         <ul className="hidden md:flex items-center gap-2 md:gap-10 text-violet-700">
           <li className="flex items-center ">
             <User size={18} strokeWidth={1.5} className="stroke-violet-700" />
-            <p className="text-xs ms-1 font-semibold ">Ali Musthafa Kamal</p>
+            <p className="text-xs ms-1 font-semibold ">
+              {user?.nama || "Pengguna"}
+            </p>
           </li>
           <li
             className="flex items-center text-violet-700 cursor-pointer"
@@ -71,7 +81,7 @@ const Header = () => {
             <li className="flex items-center text-violet-700">
               <User size={18} strokeWidth={1.5} />
               <p className="text-xs ms-3 text-violet-700 font-semibold">
-                Ali Musthafa Kamal
+                {user?.nama || "Pengguna"}
               </p>
             </li>
             <li
