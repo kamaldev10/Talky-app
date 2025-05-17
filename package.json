@@ -7,16 +7,21 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tts": "node generateTTs.mjs"
   },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "autoprefixer": "^10.4.21",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
     "framer-motion": "^12.12.1",
     "google-tts-api": "^2.0.2",
     "howler": "^2.2.4",
     "lucide-react": "^0.510.0",
+    "node-localstorage": "^3.0.5",
     "postcss": "^8.5.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

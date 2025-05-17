@@ -2,10 +2,6 @@
 
 const USER_KEY = "userData";
 
-/**
- * Simpan data user ke localStorage
- * @param {Object} data
- */
 export function setUser(data) {
   try {
     const json = JSON.stringify(data);
@@ -15,10 +11,6 @@ export function setUser(data) {
   }
 }
 
-/**
- * Ambil data user dari localStorage
- * @returns {Object|null}
- */
 export function getUser() {
   try {
     const data = localStorage.getItem(USER_KEY);
@@ -29,9 +21,6 @@ export function getUser() {
   }
 }
 
-/**
- * Hapus data user dari localStorage
- */
 export function clearUser() {
   try {
     localStorage.removeItem(USER_KEY);

@@ -24,7 +24,7 @@ const InfoSaya = () => {
             <button className="min-w-2xs p-4 bg-indigo-500 hover:bg-indigo-700 rounded-tl-xl rounded-br-xl  transition duration-150 ease-in-out hover:scale-110">
               <p className="text-white">
                 Saya adalah{" "}
-                <span className="font-bold uppercase mx-2">
+                <span className="font-bold uppercase mx-1">
                   {user?.nama || "Pengguna"}
                 </span>
               </p>

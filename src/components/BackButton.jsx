@@ -12,10 +12,10 @@ export default function BackButton() {
   return (
     <button
       onClick={() => navigate(-1)}
-      className="flex items-center justify-center p-2 bg-transparent cursor-pointer"
+      className="flex items-center justify-center p-2 bg-transparent "
       aria-label="Go Back"
     >
-      <ArrowLeft className="w-5 h-5" />
+      <ArrowLeft className="w-5 h-5 cursor-pointer" />
       <span className="ml-3 font-medium text-sm">Kembali</span>
     </button>
   );

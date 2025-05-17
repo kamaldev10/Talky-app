@@ -20,9 +20,24 @@ const Header = () => {
 
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    clearUser();
-    navigate("/biodata");
+  const handleLogout = async () => {
+    try {
+      // Panggil server logout
+      await fetch("/api/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      // Hapus data user di localStorage browser
+      clearUser();
+
+      // Redirect ke halaman login / biodata / beranda
+      navigate("/biodata");
+    } catch (err) {
+      alert("Gagal logout: " + err.message);
+    }
   };
 
   return (
@@ -67,7 +82,7 @@ const Header = () => {
         `}
         aria-hidden={!isOpen}
       >
-        <div className="pt-2 ps-3">
+        <div className="pt-2 ps-3 mb-2 border-b-1 border-b-viole-300">
           <button
             className="cursor-pointer text-violet-700"
             onClick={() => setIsOpen(false)}
@@ -76,7 +91,7 @@ const Header = () => {
             <ArrowBigLeftDash size={20} />
           </button>
         </div>
-        <div className="ps-15 pb-5 pt-1 flex flex-col gap-4">
+        <div className="ps-10  pb-5 pt-1 flex flex-col gap-4">
           <ul className="list-none flex flex-col gap-3 cursor-pointer">
             <li className="flex items-center text-violet-700">
               <User size={18} strokeWidth={1.5} />

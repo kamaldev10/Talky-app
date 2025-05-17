@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SiblingsInput from "../components/SiblingsInput";
+import { getUser, setUser } from "../utils/userStorage";
 
 const BiodataForm = () => {
   const navigate = useNavigate();
@@ -73,20 +74,34 @@ const BiodataForm = () => {
     }
   };
 
-  const saveUser = (data) => {
-    localStorage.setItem("userData", JSON.stringify(data));
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.nama.trim()) {
-      alert("Nama wajib diisi.");
-      return;
+
+    try {
+      setUser(formData); // simpan langsung di localStorage lewat setUser (import dari userStorage.js)
+
+      alert("Biodata berhasil disimpan.");
+      navigate("/");
+    } catch (err) {
+      console.error("Gagal menyimpan data:", err);
+      alert("Terjadi kesalahan saat menyimpan data.");
     }
-    saveUser(formData);
-    alert("Biodata berhasil disimpan.");
-    navigate("/");
   };
+
+  useEffect(() => {
+    async function loadUser() {
+      const savedData = await getUser();
+      if (savedData) {
+        setFormData({
+          ...savedData,
+          // pastikan kakak dan adik array minimal ada 1 item kosong
+          namaKakak: savedData.namaKakak?.length ? savedData.namaKakak : [""],
+          namaAdik: savedData.namaAdik?.length ? savedData.namaAdik : [""],
+        });
+      }
+    }
+    loadUser();
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--friendly-blue)]">
@@ -100,7 +115,6 @@ const BiodataForm = () => {
             Form Pengisian Biodata
           </h1>
 
-          {/* Nama */}
           <div className="mb-4">
             <label
               htmlFor="nama"
@@ -117,36 +131,46 @@ const BiodataForm = () => {
               required
               placeholder="Masukkan nama lengkap"
               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
+              autoFocus
             />
           </div>
 
-          {/* Umur */}
           <div className="mb-4">
             <label
               htmlFor="umur"
               className="block mb-1 text-sm font-semibold text-violet-700"
             >
-              Umur<span className="text-red-600">*</span>
+              Umur <span className="text-red-600">*</span>
             </label>
             <input
               id="umur"
               name="umur"
               type="number"
-              value={formData.umur}
-              onChange={handleChange}
               min="0"
+              max="120"
+              step="1"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              value={formData.umur}
+              onChange={(e) => {
+                const value = e.target.value;
+                // Izinkan kosong, tapi jika diisi harus angka bulat dan dalam rentang 0-120
+                if (value === "" || (/^\d+$/.test(value) && +value <= 120)) {
+                  handleChange(e);
+                }
+              }}
+              required
               placeholder="Masukkan umur"
               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
             />
           </div>
 
-          {/* Nama Kakek */}
           <div className="mb-4">
             <label
               htmlFor="namaKakek"
               className="block mb-1 text-sm font-semibold text-violet-700"
             >
-              Nama Kakek<span className="text-red-600">*</span>
+              Nama Kakek <span className="text-red-600">*</span>
             </label>
             <input
               id="namaKakek"
@@ -154,18 +178,18 @@ const BiodataForm = () => {
               type="text"
               value={formData.namaKakek}
               onChange={handleChange}
-              placeholder="Masukkan nama kakek"
+              required
+              placeholder="Masukkan nama Kakek"
               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
             />
           </div>
 
-          {/* Nama Nenek */}
           <div className="mb-4">
             <label
               htmlFor="namaNenek"
               className="block mb-1 text-sm font-semibold text-violet-700"
             >
-              Nama Nenek<span className="text-red-600">*</span>
+              Nama Nenek <span className="text-red-600">*</span>
             </label>
             <input
               id="namaNenek"
@@ -173,18 +197,18 @@ const BiodataForm = () => {
               type="text"
               value={formData.namaNenek}
               onChange={handleChange}
-              placeholder="Masukkan nama nenek"
+              required
+              placeholder="Masukkan nama Nenek"
               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
             />
           </div>
 
-          {/* Nama Ayah */}
           <div className="mb-4">
             <label
               htmlFor="namaAyah"
               className="block mb-1 text-sm font-semibold text-violet-700"
             >
-              Nama Ayah<span className="text-red-600">*</span>
+              Nama Ayah <span className="text-red-600">*</span>
             </label>
             <input
               id="namaAyah"
@@ -192,18 +216,18 @@ const BiodataForm = () => {
               type="text"
               value={formData.namaAyah}
               onChange={handleChange}
-              placeholder="Masukkan nama ayah"
+              required
+              placeholder="Masukkan nama Ayah"
               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
             />
           </div>
 
-          {/* Nama Ibu */}
           <div className="mb-4">
             <label
               htmlFor="namaIbu"
               className="block mb-1 text-sm font-semibold text-violet-700"
             >
-              Nama Ibu<span className="text-red-600">*</span>
+              Nama Ibu <span className="text-red-600">*</span>
             </label>
             <input
               id="namaIbu"
@@ -211,10 +235,12 @@ const BiodataForm = () => {
               type="text"
               value={formData.namaIbu}
               onChange={handleChange}
-              placeholder="Masukkan nama ibu"
+              required
+              placeholder="Masukkan nama Ibu"
               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
             />
           </div>
+
           {/* Kakak */}
           <SiblingsInput
             label="Nama Kakak"

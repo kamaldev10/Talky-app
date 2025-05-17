@@ -17,19 +17,19 @@ const Kategori = () => {
           <div className="flex flex-col gap-4 text-center">
             <Link
               to="kegiatan"
-              className="btn-primary transition delay-100 duration-150 ease-in-out hover:-translate-y-1 hover:scale-110"
+              className="btn-primary bg-cyan-700 transition delay-100 duration-150 ease-in-out hover:-translate-y-1 hover:scale-110"
             >
               Kegiatan Sehari-hari
             </Link>
             <Link
               to="info-saya"
-              className="btn-primary transition delay-100 duration-150 ease-initial hover:-translate-y-1 hover:scale-110"
+              className="btn-primary bg-cyan-700 transition delay-100 duration-150 ease-initial hover:-translate-y-1 hover:scale-110"
             >
               Informasi tentang saya
             </Link>
             <Link
               to="info-keluarga"
-              className="btn-primary transition delay-100 duration-150 ease-initial hover:-translate-y-1 hover:scale-110"
+              className="btn-primary bg-cyan-700 transition delay-100 duration-150 ease-initial hover:-translate-y-1 hover:scale-110"
             >
               Informasi tentang keluarga saya
             </Link>

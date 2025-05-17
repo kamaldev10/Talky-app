@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { useEffect, useState } from "react";
-import { getUser } from "../utils/userStorage";
+import { getUser, setUser } from "../utils/userStorage";
 import GoogleStyleLoader from "../components/GoogleStyleLoader";
 
 const Home = () => {
@@ -14,11 +14,12 @@ const Home = () => {
     const user = getUser();
 
     if (!user) {
-      navigate("/biodata"); // redirect ke biodata kalau tidak login
+      navigate("/biodata");
     } else {
+      setUser(user);
       setTimeout(() => {
-        setLoading(false); // setelah delay, tampilkan konten utama
-      }, 3000);
+        setLoading(false);
+      }, 2000);
     }
   }, [navigate]);
 
@@ -42,6 +43,12 @@ const Home = () => {
               className="btn-primary transition delay-100 duration-150 ease-in-out hover:-translate-y-1 hover:scale-110"
             >
               Informasi
+            </Link>
+            <Link
+              to="/biodata"
+              className="btn-primary transition delay-100 duration-150 ease-in-out hover:-translate-y-1 hover:scale-110"
+            >
+              Update Biodata
             </Link>
           </div>
         </div>

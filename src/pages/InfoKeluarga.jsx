@@ -63,7 +63,13 @@ const InfoKeluarga = () => {
                 <p className="text-white">
                   Kakak saya ada {kakakList.length} yaitu
                   <span className="ms-2 uppercase font-bold text-violet-700">
-                    {kakakList.join(", ")}
+                    {kakakList.length === 1
+                      ? kakakList[0]
+                      : kakakList.length === 2
+                      ? kakakList.join(" & ")
+                      : `${kakakList
+                          .slice(0, -1)
+                          .join(", ")}, & ${adikList.slice(-1)}`}{" "}
                   </span>
                 </p>
               </button>
@@ -84,8 +90,14 @@ const InfoKeluarga = () => {
               <button className="w-full min-w-2xs max-w-xs p-4 bg-green-500 hover:bg-green-700 rounded-tl-xl rounded-br-xl transition delay-100 duration-150 ease-in-out hover:-translate-y-1 hover:scale-110">
                 <p className="text-white">
                   Adik saya ada {adikList.length} yaitu
-                  <span className="ms-2 uppercase text-violet-700">
-                    {adikList.join(", ")}
+                  <span className="ms-2 uppercase text-violet-700 font-bold">
+                    {adikList.length === 1
+                      ? adikList[0]
+                      : adikList.length === 2
+                      ? adikList.join(" & ")
+                      : `${adikList
+                          .slice(0, -1)
+                          .join(", ")}, & ${adikList.slice(-1)}`}{" "}
                   </span>
                 </p>
               </button>
