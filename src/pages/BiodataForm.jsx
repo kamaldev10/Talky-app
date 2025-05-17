@@ -108,7 +108,7 @@ const BiodataForm = () => {
       <div className="flex-grow flex items-center justify-center px-4">
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-lg bg-white rounded-lg shadow-lg p-8 mt-2"
+          className="w-full max-w-lg bg-white rounded-lg shadow-lg p-8 my-10"
           noValidate
         >
           <h1 className="text-xl font-bold mb-6 text-center text-violet-700">
