@@ -1,6 +1,7 @@
 # Disability App
 
 ![version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![license](https://img.shields.io/badge/license-MIT-green.svg)
 ![made-with-react](https://img.shields.io/badge/Made%20with-React-blue.svg)
 ![status](https://img.shields.io/badge/status-mobile--first%20ready-success)
 
@@ -29,4 +30,3 @@ _Disability App_ adalah aplikasi berbasis web yang dikembangkan menggunakan **Re
    ```bash
    git clone https://github.com/username/disability-app.git
    cd disability-app
-   ```
