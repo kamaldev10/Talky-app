@@ -2,13 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Title } from "react-head";
 import BackButton from "../components/BackButton";
 import { getUser } from "../utils/userStorage";
+import GoogleStyleLoader from "../components/loader/GoogleStyleLoader";
 
 const InfoSaya = () => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const userData = getUser();
     setUser(userData);
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+    return () => clearTimeout(timer);
   }, []);
 
   const hobiList = Array.isArray(user?.hobi)
@@ -16,6 +23,14 @@ const InfoSaya = () => {
     : typeof user?.hobi === "string"
     ? [user.hobi.trim()]
     : [];
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <GoogleStyleLoader />
+      </div>
+    );
+  }
 
   return (
     <>
