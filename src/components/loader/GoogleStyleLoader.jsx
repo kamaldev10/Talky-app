@@ -8,7 +8,7 @@ const bounceTransition = {
 
 export default function GoogleStyleLoader() {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-transparent">
+    <div className="fixed inset-0 flex items-center justify-center bg-blue-100">
       <div className="flex gap-2">
         {["bg-blue-500", "bg-red-500", "bg-yellow-400", "bg-green-500"].map(
           (color, i) => (

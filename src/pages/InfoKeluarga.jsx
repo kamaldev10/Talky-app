@@ -2,6 +2,8 @@ import { keluargaList } from "../data";
 import BackButton from "../components/BackButton";
 import { Title } from "react-head";
 import { Howl } from "howler";
+import { useEffect, useState } from "react";
+import GoogleStyleLoader from "../components/loader/GoogleStyleLoader";
 
 const InfoKeluarga = () => {
   const handleClick = (item) => {
@@ -14,6 +16,23 @@ const InfoKeluarga = () => {
     });
     sound.play();
   };
+
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <GoogleStyleLoader />
+      </div>
+    );
+  }
 
   return (
     <>
