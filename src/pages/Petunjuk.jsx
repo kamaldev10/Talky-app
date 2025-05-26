@@ -1,6 +1,7 @@
 import React from "react";
 import BackButton from "../components/BackButton";
 import { Title } from "react-head";
+import Footer from "../components/Footer";
 
 const Petunjuk = () => {
   return (
@@ -22,6 +23,7 @@ const Petunjuk = () => {
             </li>
           </ol>
         </div>
+        <Footer />
       </div>
     </>
   );

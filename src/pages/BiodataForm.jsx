@@ -1,124 +1,106 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import SiblingsInput from "../components/SiblingsInput";
-import { getUser, setUser } from "../utils/userStorage";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { setUser, getUser } from "../utils/userStorage";
+import HobbyInput from "../components/HobbyInput ";
+import { Slide, toast } from "react-toastify";
+import GoogleStyleLoader from "../components/loader/GoogleStyleLoader";
 
 const BiodataForm = () => {
-  const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     nama: "",
     umur: "",
-    namaKakek: "",
-    namaNenek: "",
-    namaAyah: "",
-    namaIbu: "",
-    namaKakak: [""],
-    namaAdik: [""],
+    hobi: [""],
   });
 
-  const handleChange = (e, index, type) => {
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const savedUser = getUser();
+    if (savedUser) {
+      setFormData({
+        nama: savedUser.nama || "",
+        umur: savedUser.umur || "",
+        hobi:
+          Array.isArray(savedUser.hobi) && savedUser.hobi.length > 0
+            ? savedUser.hobi
+            : [""],
+      });
+    }
+  }, []);
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
-
-    if (type === "kakak") {
-      const kakakArray = [...formData.namaKakak];
-      kakakArray[index] = value;
-      setFormData((prev) => ({
-        ...prev,
-        namaKakak: kakakArray,
-      }));
-    } else if (type === "adik") {
-      const adikArray = [...formData.namaAdik];
-      adikArray[index] = value;
-      setFormData((prev) => ({
-        ...prev,
-        namaAdik: adikArray,
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const addSibling = (type) => {
-    if (type === "kakak") {
-      setFormData((prev) => ({
-        ...prev,
-        namaKakak: [...prev.namaKakak, ""],
-      }));
-    } else if (type === "adik") {
-      setFormData((prev) => ({
-        ...prev,
-        namaAdik: [...prev.namaAdik, ""],
-      }));
-    }
+  const handleHobbyChange = (e, index) => {
+    const updatedHobbies = [...formData.hobi];
+    updatedHobbies[index] = e.target.value;
+    setFormData((prev) => ({ ...prev, hobi: updatedHobbies }));
   };
 
-  const removeSibling = (index, type) => {
-    if (type === "kakak") {
-      const kakakArray = [...formData.namaKakak];
-      kakakArray.splice(index, 1);
-      setFormData((prev) => ({
-        ...prev,
-        namaKakak: kakakArray.length ? kakakArray : [""],
-      }));
-    } else if (type === "adik") {
-      const adikArray = [...formData.namaAdik];
-      adikArray.splice(index, 1);
-      setFormData((prev) => ({
-        ...prev,
-        namaAdik: adikArray.length ? adikArray : [""],
-      }));
-    }
+  const addHobby = () => {
+    setFormData((prev) => ({ ...prev, hobi: [...prev.hobi, ""] }));
   };
+
+  const removeHobby = (index) => {
+    const updatedHobbies = [...formData.hobi];
+    updatedHobbies.splice(index, 1);
+    setFormData((prev) => ({
+      ...prev,
+      hobi: updatedHobbies.length ? updatedHobbies : [""],
+    }));
+  };
+
+  if (!location.key) return null;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
-      setUser(formData); // simpan langsung di localStorage lewat setUser (import dari userStorage.js)
+      setUser(formData);
 
-      alert("Biodata berhasil disimpan.");
-      navigate("/");
+      toast.success("Biodata berhasil disimpan!", {
+        position: "top-center",
+        autoClose: 999,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+        transition: Slide,
+      });
+
+      setTimeout(() => {
+        setLoading(false);
+        navigate("/");
+      }, 1000);
     } catch (err) {
+      setLoading(false);
       console.error("Gagal menyimpan data:", err);
       alert("Terjadi kesalahan saat menyimpan data.");
     }
   };
-
-  useEffect(() => {
-    async function loadUser() {
-      const savedData = await getUser();
-      if (savedData) {
-        setFormData({
-          ...savedData,
-          // pastikan kakak dan adik array minimal ada 1 item kosong
-          namaKakak: savedData.namaKakak?.length ? savedData.namaKakak : [""],
-          namaAdik: savedData.namaAdik?.length ? savedData.namaAdik : [""],
-        });
-      }
-    }
-    loadUser();
-  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--friendly-blue)]">
       <div className="flex-grow flex items-center justify-center px-4">
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-lg bg-white rounded-lg shadow-lg p-8 my-10"
-          noValidate
+          className="w-full w-sm md:w-lg bg-white rounded-lg shadow-lg p-8 my-10"
         >
           <h1 className="text-xl font-bold mb-6 text-center text-violet-700">
-            Form Pengisian Biodata
+            Form Biodata
           </h1>
 
+          {/* Nama */}
           <div className="mb-4">
             <label
               htmlFor="nama"
-              className="block mb-1 text-sm font-semibold text-violet-700"
+              className="block mb-1 text-sm font-semibold text-black"
             >
               Nama Lengkap <span className="text-red-600">*</span>
             </label>
@@ -135,10 +117,11 @@ const BiodataForm = () => {
             />
           </div>
 
+          {/* Umur */}
           <div className="mb-4">
             <label
               htmlFor="umur"
-              className="block mb-1 text-sm font-semibold text-violet-700"
+              className="block mb-1 text-sm font-semibold text-black"
             >
               Umur <span className="text-red-600">*</span>
             </label>
@@ -148,125 +131,46 @@ const BiodataForm = () => {
               type="number"
               min="0"
               max="120"
-              step="1"
-              inputMode="numeric"
-              pattern="[0-9]*"
               value={formData.umur}
-              onChange={(e) => {
-                const value = e.target.value;
-                // Izinkan kosong, tapi jika diisi harus angka bulat dan dalam rentang 0-120
-                if (value === "" || (/^\d+$/.test(value) && +value <= 120)) {
-                  handleChange(e);
-                }
-              }}
+              onChange={handleChange}
               required
               placeholder="Masukkan umur"
               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
             />
           </div>
 
-          <div className="mb-4">
-            <label
-              htmlFor="namaKakek"
-              className="block mb-1 text-sm font-semibold text-violet-700"
-            >
-              Nama Kakek <span className="text-red-600">*</span>
-            </label>
-            <input
-              id="namaKakek"
-              name="namaKakek"
-              type="text"
-              value={formData.namaKakek}
-              onChange={handleChange}
-              required
-              placeholder="Masukkan nama Kakek"
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="namaNenek"
-              className="block mb-1 text-sm font-semibold text-violet-700"
-            >
-              Nama Nenek <span className="text-red-600">*</span>
-            </label>
-            <input
-              id="namaNenek"
-              name="namaNenek"
-              type="text"
-              value={formData.namaNenek}
-              onChange={handleChange}
-              required
-              placeholder="Masukkan nama Nenek"
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="namaAyah"
-              className="block mb-1 text-sm font-semibold text-violet-700"
-            >
-              Nama Ayah <span className="text-red-600">*</span>
-            </label>
-            <input
-              id="namaAyah"
-              name="namaAyah"
-              type="text"
-              value={formData.namaAyah}
-              onChange={handleChange}
-              required
-              placeholder="Masukkan nama Ayah"
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="namaIbu"
-              className="block mb-1 text-sm font-semibold text-violet-700"
-            >
-              Nama Ibu <span className="text-red-600">*</span>
-            </label>
-            <input
-              id="namaIbu"
-              name="namaIbu"
-              type="text"
-              value={formData.namaIbu}
-              onChange={handleChange}
-              required
-              placeholder="Masukkan nama Ibu"
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
-            />
-          </div>
-
-          {/* Kakak */}
-          <SiblingsInput
-            label="Nama Kakak"
-            values={formData.namaKakak}
-            onChange={(e, idx) => handleChange(e, idx, "kakak")}
-            onAdd={() => addSibling("kakak")}
-            onRemove={(idx) => removeSibling(idx, "kakak")}
+          {/* Hobi */}
+          <HobbyInput
+            values={formData.hobi}
+            onChange={handleHobbyChange}
+            onAdd={addHobby}
+            onRemove={removeHobby}
           />
-          {/* Adik */}
-          <SiblingsInput
-            label="Nama Adik"
-            values={formData.namaAdik}
-            onChange={(e, idx) => handleChange(e, idx, "adik")}
-            onAdd={() => addSibling("adik")}
-            onRemove={(idx) => removeSibling(idx, "adik")}
-          />
-          <div className="flex justify-end">
+
+          <div className="flex justify-between gap-5">
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="w-1/2 bg-gray-700 hover:bg-gray-800 text-white py-3 rounded-md text-sm font-semibold  transition"
+            >
+              Batal
+            </button>
             <button
               type="submit"
-              className="w-1/2  bg-violet-700 text-white py-3 rounded-md text-sm font-semibold hover:bg-violet-800 transition"
+              className="w-1/2 bg-green-700 hover:bg-green-800 text-white py-3 rounded-md text-sm font-semibold transition"
+              disabled={loading}
             >
-              Simpan
+              {loading ? "Menyimpan..." : "Simpan"}
             </button>
           </div>
         </form>
       </div>
+
+      {loading && (
+        <div className="absolute inset-0 bg-white/60 flex items-center justify-center">
+          <GoogleStyleLoader />
+        </div>
+      )}
     </div>
   );
 };

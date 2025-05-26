@@ -1,14 +1,16 @@
-import { kegiatanList } from "../data";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Howl } from "howler";
-
 import BackButton from "../components/BackButton";
 import { Title } from "react-head";
-
+import { Howl } from "howler";
+import { kegiatanList } from "../data";
+import { useEffect, useState } from "react";
+import GoogleStyleLoader from "../components/loader/GoogleStyleLoader";
+GoogleStyleLoader;
 const Kegiatan = () => {
+  const [loading, setLoading] = useState(true);
+
   const handleClick = (item) => {
     const sound = new Howl({
-      src: [`/sounds/${item.sound}`],
+      src: [`/sounds/activity/${item.sound}`],
       volume: 1.0,
       rate: 1,
       loop: false,
@@ -16,46 +18,49 @@ const Kegiatan = () => {
     });
     sound.play();
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <GoogleStyleLoader />
+      </div>
+    );
+  }
+
   return (
     <>
       <Title>Disability App | Kegiatan Sehari-hari</Title>
-      <div className="min-h-screen bg-(--friendly-blue) ">
-        <header className=" flex flex-col items-start justify-start w-full p-4">
+      <div className="min-h-screen bg-blue-100 px-4 pb-10">
+        <header className="pt-4">
           <BackButton />
         </header>
-
-        <h1 className="mt-5 text-xl font-bold text-center">Kategori</h1>
-
-        <div className="flex flex-wrap justify-center mt-10">
-          <div className="grid grid-cols-2 gap-6 place-items-center">
-            {kegiatanList.map((item, index) => {
-              const isLast = index === kegiatanList.length - 1;
-              const isOdd = kegiatanList.length % 2 !== 0;
-              const isLonelyLast = isOdd && isLast;
-
-              return (
-                <div
-                  key={index}
-                  className={`w-full flex justify-center ${
-                    isLonelyLast ? "col-span-2" : ""
-                  }`}
-                >
-                  <button
-                    key={item.nama}
-                    onClick={() => handleClick(item)}
-                    className={`min-w-[160px] flex justify-center items-center gap-5 uppercase transition delay-100 duration-150 ease-in-out hover:-translate-y-1 hover:scale-110 text-white px-6 py-5 rounded-xl shadow-md ${item.warna} cursor-pointer`}
-                  >
-                    {item.type === "lucide" ? (
-                      <item.icon size={20} strokeWidth={2} />
-                    ) : (
-                      <FontAwesomeIcon icon={item.icon} className="w-5 h-5" />
-                    )}
-                    {item.nama}
-                  </button>
-                </div>
-              );
-            })}
-          </div>
+        <h1 className="text-xl font-bold text-center mb-6">Kegiatan</h1>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {kegiatanList.map((item, index) => (
+            <button
+              key={index}
+              onClick={() => handleClick(item)}
+              className="flex flex-col items-center bg-white rounded-xl p-4 shadow-md hover:scale-105 transition"
+            >
+              <img
+                loading="lazy"
+                src={item.image}
+                alt={item.nama}
+                className="w-24 h-24 object-cover rounded-full mb-2"
+              />
+              <span className="font-bold text-center capitalize text-sm text-gray-700">
+                {item.nama}
+              </span>
+            </button>
+          ))}
         </div>
       </div>
     </>

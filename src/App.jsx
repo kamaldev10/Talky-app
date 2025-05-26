@@ -15,6 +15,8 @@ import InfoSaya from "./pages/InfoSaya";
 import Kategori from "./pages/Kategori";
 import InfoKeluarga from "./pages/InfoKeluarga";
 import BiodataForm from "./pages/BiodataForm";
+import { ToastContainer } from "react-toastify";
+import Latihan from "./pages/Latihan";
 
 function Layout() {
   return (
@@ -36,6 +38,7 @@ function App() {
             <Route path="kategori/kegiatan" element={<Kegiatan />} />
             <Route path="kategori/info-saya" element={<InfoSaya />} />
             <Route path="kategori/info-keluarga" element={<InfoKeluarga />} />
+            <Route path="kategori/latihan" element={<Latihan />} />
 
             <Route path="info" element={<Info />} />
             <Route path="info/petunjuk" element={<Petunjuk />} />
@@ -46,6 +49,7 @@ function App() {
           <Route path="/biodata" element={<BiodataForm />} />
         </Routes>
       </Router>
+      <ToastContainer />
     </HeadProvider>
   );
 }

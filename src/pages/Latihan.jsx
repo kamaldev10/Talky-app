@@ -3,7 +3,7 @@ import BackButton from "../components/BackButton";
 import { Title } from "react-head";
 import { Howl } from "howler";
 
-const InfoKeluarga = () => {
+const Latihan = () => {
   const handleClick = (item) => {
     const sound = new Howl({
       src: [`/sounds/family/${item.sound}`],
@@ -17,12 +17,12 @@ const InfoKeluarga = () => {
 
   return (
     <>
-      <Title>Disability App | Info Keluarga</Title>
+      <Title>Disability App | Latihan</Title>
       <div className="min-h-screen bg-blue-100 px-4 pb-10">
         <header className="p-4">
           <BackButton />
         </header>
-        <h1 className="text-xl font-bold text-center mb-6">Keluarga</h1>
+        <h1 className="text-xl font-bold text-center mb-6">Latihan</h1>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {keluargaList.map((item, index) => (
             <button
@@ -47,4 +47,4 @@ const InfoKeluarga = () => {
   );
 };
 
-export default InfoKeluarga;
+export default Latihan;

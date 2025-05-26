@@ -21,17 +21,24 @@ const Kategori = () => {
             >
               Kegiatan Sehari-hari
             </Link>
-            <Link
-              to="info-saya"
-              className="btn-primary bg-cyan-700 transition delay-100 duration-150 ease-initial hover:-translate-y-1 hover:scale-110"
-            >
-              Informasi tentang saya
-            </Link>
+
             <Link
               to="info-keluarga"
-              className="btn-primary bg-cyan-700 transition delay-100 duration-150 ease-initial hover:-translate-y-1 hover:scale-110"
+              className="btn-primary bg-lime-700 transition delay-100 duration-150 ease-initial hover:-translate-y-1 hover:scale-110"
             >
-              Informasi tentang keluarga saya
+              Keluarga saya
+            </Link>
+            <Link
+              to="latihan"
+              className="btn-primary bg-indigo-700 transition delay-100 duration-150 ease-initial hover:-translate-y-1 hover:scale-110"
+            >
+              Latihan
+            </Link>
+            <Link
+              to="info-saya"
+              className="btn-primary bg-amber-700 transition delay-100 duration-150 ease-initial hover:-translate-y-1 hover:scale-110"
+            >
+              Informasi saya
             </Link>
           </div>
         </div>

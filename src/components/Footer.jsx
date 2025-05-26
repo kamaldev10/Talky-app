@@ -4,8 +4,8 @@ const Footer = () => {
   return (
     <>
       <div>
-        <div className="py-3 text-sm text-center text-violet-700 font-semibold bg-[#88b9d1]">
-          &copy; {new Date().getFullYear()} Disability App. All rights reserved.
+        <div className="min-w-screen py-3 text-sm text-center text-white font-semibold bg-gray-700">
+          &copy; {new Date().getFullYear()} Talky. All rights reserved.
         </div>
       </div>
     </>

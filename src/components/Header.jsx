@@ -1,10 +1,5 @@
-import {
-  User,
-  ArrowBigLeftDash,
-  ArrowBigRightDash,
-  LogOut,
-} from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { User, Menu, LogOut, ChevronRight, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import { clearUser, getUser } from "../utils/userStorage";
 import { useNavigate } from "react-router-dom";
 
@@ -42,7 +37,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="flex justify-between items-center bg-[var(--friendly-blue)] py-4 px-4 border-b-2 border-violet-500 relative z-20">
+      <header className="sticky bg-gray-400 flex justify-between items-center bg-[var(--friendly-blue)] py-4 px-4 border-b-2 border-violet-500 relative z-20">
         <h1 className="font-bold text-xl text-violet-700">Disability App</h1>
         {/* Toggle button visible on small screens */}
         <button
@@ -50,11 +45,8 @@ const Header = () => {
           aria-label="Toggle User Info Sidebar"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? (
-            <ArrowBigLeftDash size={20} />
-          ) : (
-            <ArrowBigRightDash size={20} />
-          )}
+          <Menu size={20} />
+          <ChevronRight size={20} />
         </button>
         {/* User info visible on md and up */}
         <ul className="hidden md:flex items-center gap-2 md:gap-10 text-violet-700">
@@ -82,20 +74,20 @@ const Header = () => {
         `}
         aria-hidden={!isOpen}
       >
-        <div className="pt-2 ps-3 mb-2 border-b-1 border-b-viole-300">
+        <div className="pt-2 ps-3 mb-2 border-b-1 border-b border-violet-400">
           <button
-            className="cursor-pointer text-violet-700"
+            className="cursor-pointer bg-sky-300 rounded-full p-1 mb-2 hover:opacity-50"
             onClick={() => setIsOpen(false)}
             aria-label="Close Sidebar"
           >
-            <ArrowBigLeftDash size={20} />
+            <X />
           </button>
         </div>
         <div className="ps-10  pb-5 pt-1 flex flex-col gap-4">
           <ul className="list-none flex flex-col gap-3 cursor-pointer">
             <li className="flex items-center text-violet-700">
               <User size={18} strokeWidth={1.5} />
-              <p className="text-xs ms-3 text-violet-700 font-semibold">
+              <p className="text-xs ms-3 text-gray-700 font-semibold">
                 {user?.nama || "Pengguna"}
               </p>
             </li>
@@ -104,9 +96,7 @@ const Header = () => {
               onClick={handleLogout}
             >
               <LogOut size={18} strokeWidth={1.5} />
-              <p className="text-xs ms-3 text-violet-700 font-semibold">
-                Keluar
-              </p>
+              <p className="text-xs ms-3 text-gray-700 font-semibold">Keluar</p>
             </li>
           </ul>
         </div>
