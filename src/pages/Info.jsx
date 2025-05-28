@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 const Info = () => {
   return (
     <>
-      <Title>Disability App | Informasi</Title>
+      <Title>Talky App | Informasi</Title>
       <div className=" min-h-screen flex flex-col items-center justify-center bg-(--friendly-blue) ">
         <header className="flex items-start justify-start w-full p-4">
           <BackButton />

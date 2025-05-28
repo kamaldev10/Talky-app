@@ -37,8 +37,8 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky bg-gray-400 flex justify-between items-center bg-[var(--friendly-blue)] py-4 px-4 border-b-2 border-violet-500 relative z-20">
-        <h1 className="font-bold text-xl text-violet-700">Disability App</h1>
+      <header className=" bg-gray-400 flex justify-between items-center  py-4 px-4 border-b-2 border-violet-500 relative z-20">
+        <h1 className="font-bold text-xl text-violet-700">Talky App</h1>
         {/* Toggle button visible on small screens */}
         <button
           className="md:hidden flex items-center p-2 rounded-md text-violet-700  transition cursor-pointer"

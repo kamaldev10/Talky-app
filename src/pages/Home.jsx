@@ -20,7 +20,7 @@ const Home = () => {
 
   return (
     <>
-      <Title>Disability App | Beranda </Title>
+      <Title>Talky App | Beranda </Title>
       <div className="relative min-h-screen flex flex-col">
         <div>
           <Header />

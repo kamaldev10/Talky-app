@@ -34,7 +34,7 @@ const InfoSaya = () => {
 
   return (
     <>
-      <Title>Disability App | Info Saya</Title>
+      <Title>Talky App | Info Saya</Title>
       <div className="min-h-screen flex flex-col items-center justify-center bg-[var(--friendly-blue)]">
         <header className="flex items-start justify-start w-full p-4">
           <BackButton />

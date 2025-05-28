@@ -36,7 +36,7 @@ const InfoKeluarga = () => {
 
   return (
     <>
-      <Title>Disability App | Info Keluarga</Title>
+      <Title>Talky App | Info Keluarga</Title>
       <div className="min-h-screen bg-blue-100 px-4 pb-10">
         <header className="p-4">
           <BackButton />

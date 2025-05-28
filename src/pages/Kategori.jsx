@@ -6,7 +6,7 @@ import BackButton from "../components/BackButton";
 const Kategori = () => {
   return (
     <>
-      <Title>Disability App | Kategori</Title>
+      <Title>Talky App | Kategori</Title>
       <div className=" min-h-screen flex flex-col items-center justify-center bg-(--friendly-blue) ">
         <header className="flex items-start justify-start w-full p-4">
           <BackButton />
@@ -28,12 +28,7 @@ const Kategori = () => {
             >
               Keluarga saya
             </Link>
-            <Link
-              to="latihan"
-              className="btn-primary bg-indigo-700 transition delay-100 duration-150 ease-initial hover:-translate-y-1 hover:scale-110"
-            >
-              Latihan
-            </Link>
+
             <Link
               to="info-saya"
               className="btn-primary bg-amber-700 transition delay-100 duration-150 ease-initial hover:-translate-y-1 hover:scale-110"

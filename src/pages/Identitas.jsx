@@ -2,39 +2,57 @@ import React from "react";
 import BackButton from "../components/BackButton";
 import { Title } from "react-head";
 import Footer from "../components/Footer";
+import { motion } from "motion/react";
 
 const Identitas = () => {
   return (
     <>
-      <Title>Disability App | Identitas</Title>
-      <div className=" min-h-screen flex flex-col items-center justify-center bg-(--friendly-blue)  ">
+      <Title>Talky App | Identitas</Title>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-blue-100">
         <div className="flex items-start justify-start w-full p-4">
           <BackButton />
         </div>
-        <div className="w-full flex-grow  ">
-          <div className="flex flex-col border border-gray-800 rounded-xl max-h-dvh min-h-[75vh] mx-10 my-5 items-center justify-center md:w-xl md:place-self-center">
-            <h1 className="mb-5 font-bold text-xl">Universitas Andalas</h1>
-            <div className="border w-36 h-36">
-              <img src="" alt="logo-unand" />
+
+        <div className="w-full min-h-full flex-grow px-4 md:px-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col border border-gray-300 rounded-xl bg-white shadow-lg p-6 max-w-xl mx-auto my-5 items-center justify-center space-y-4"
+          >
+            <h1 className="font-bold text-xl text-center">
+              Universitas Negeri Padang
+            </h1>
+
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="w-42 h-42"
+            >
+              <img
+                src="/images/logo-unp.png"
+                alt="Logo UNP"
+                className="w-full h-full object-contain"
+              />
+            </motion.div>
+
+            <div className="text-center mt-4 space-y-1">
+              <h2 className="text-md font-bold">Kelompok 14 :</h2>
+              <p className="text-sm font-semibold">
+                Liyana Dalila Rahma Pilica (22003110)
+              </p>
             </div>
 
-            <h2 className="mt-5 text-md font-bold text-center">
-              Kelompok 14 :
-            </h2>
-            <div className="text-center font-semibold flex gap-1">
-              <h3 className="text-sm ">Liyana Piscila</h3>
-              <h3 className="text-sm ">( 22003110 )</h3>
-            </div>
-            <div className="text-center">
-              <h2 className="mt-5 text-md font-bold text-center">
-                Dosen Pengampu :
-              </h2>
-              <h3 className="text-sm font-semibold">
+            <div className="text-center mt-4 space-y-1">
+              <h2 className="text-md font-bold">Dosen Pengampu :</h2>
+              <p className="text-sm font-semibold">
                 Prof. Dr. Marlina, S. Pd., M. Si
-              </h3>
+              </p>
             </div>
-          </div>
+          </motion.div>
         </div>
+
         <Footer />
       </div>
     </>

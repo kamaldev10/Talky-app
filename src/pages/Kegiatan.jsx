@@ -37,7 +37,7 @@ const Kegiatan = () => {
 
   return (
     <>
-      <Title>Disability App | Kegiatan Sehari-hari</Title>
+      <Title>Talky App | Kegiatan Sehari-hari</Title>
       <div className="min-h-screen bg-blue-100 px-4 pb-10">
         <header className="pt-4">
           <BackButton />
